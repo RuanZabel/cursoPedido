@@ -3,23 +3,26 @@ package com.projetopedido.pedido.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetopedido.pedido.domain.Categoria;
+import com.projetopedido.pedido.services.CategoriaService;
 
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
-	@RequestMapping(method = RequestMethod.GET)
-	public List<?> listar() {		
-		Categoria categoria=new Categoria(1, "teste");
-		Categoria categoria2=new Categoria(2, "teste2");
-		List<Categoria> lista = new ArrayList<>();
-		lista.add(categoria);
-		lista.add(categoria2);
-		return lista;
+	@Autowired
+	private CategoriaService service;
+	@RequestMapping(value="/{id}",method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {		
+		Categoria obj = service.buscarCategoria(id);
+	
+		return ResponseEntity.ok().body(obj);
 	}
 	
 }
