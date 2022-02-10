@@ -9,12 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Categoria implements Serializable {
+public class Estado implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -22,41 +20,38 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	@JsonManagedReference
-	@ManyToMany(mappedBy = "categorias") // como o mapeamento foi feito na classe categoria não preciso refazer aqui somente colocar esse mapeamento
-	private List<Produto> produtos = new ArrayList<>();
+	@OneToMany(mappedBy = "estado") // estado é o atributo da classe Cidade, mapeamento inverso.
+	private List<Cidade> cidades = new ArrayList<>();
 	
-	public Categoria() {
-		
-	}
-
-	public Categoria(Integer id, String nome) {
+	public Estado(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
-
+	public Estado() {		
+	}
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	public List<Cidade> getCidades() {
+		return cidades;
+	}
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,16 +60,9 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Estado other = (Estado) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+	
 	
 }

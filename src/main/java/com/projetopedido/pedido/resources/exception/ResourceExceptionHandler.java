@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.projetopedido.pedido.services.exceptions.ObjectNotFoundException;
-
+// classe padrão para exceções 
 @ControllerAdvice
 public class ResourceExceptionHandler  {
 	@ExceptionHandler(ObjectNotFoundException.class)
