@@ -2,6 +2,7 @@ package com.projetopedido.pedido.services;
 
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,11 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
 	public Categoria buscarCategoria(Integer id) {
-		Optional<Categoria>obj=repo.findById(id);
-		return obj.orElse(null);
+		Optional<Categoria> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new com.projetopedido.pedido.services.exceptions.ObjectNotFoundException(
+				"Objeto não encontrado ID:"+id+" Tipo "+Categoria.class.getName()));
+		
+		//Optional<Categoria>obj=repo.findById(id);
+		//return obj.orElse(null);
 	}
 }
