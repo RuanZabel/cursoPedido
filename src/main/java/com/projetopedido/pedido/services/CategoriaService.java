@@ -1,5 +1,6 @@
 package com.projetopedido.pedido.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -40,5 +41,8 @@ public class CategoriaService {
 			throw new DataIntegrityException("não é possivel excluir, pois, tem produto");
 		}
 		
+	}
+	public List<Categoria> findAll() {		
+		return repo.findAll();
 	}
 }
